@@ -17,7 +17,7 @@ const userLinks = [{ href: "/profile", label: "Perfil" }];
 export const Navbar = () => {
   const [session, setSession] = useState<Session | null>(null);
   const router = useRouter();
-  const { userProfile, setUserProfile } = useGlobalContext();
+  const { setUserProfile } = useGlobalContext();
 
   useEffect(() => {
     const getCurrentSession = async () => {
