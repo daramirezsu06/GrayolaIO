@@ -1,101 +1,114 @@
-import Image from "next/image";
-
-export default function Home() {
+const HomePage = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      <div className="bg-gray-50 min-h-screen">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-r from-purple-500 to-blue-600 text-white text-center py-20">
+          <h1 className="text-4xl font-bold">
+            Diseño a tu alcance, a gran escala
+          </h1>
+          <p className="mt-4 text-lg">
+            Simplificamos la gestión de proyectos de diseño para empresas de
+            todo el mundo.
+          </p>
+          <div className="mt-8">
+            <a
+              href="/signup"
+              className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold shadow-md hover:bg-gray-100 mr-4">
+              Crear Cuenta
+            </a>
+            <a
+              href="/contact"
+              className="bg-transparent border border-white px-6 py-3 rounded-md text-white font-semibold hover:bg-white hover:text-blue-600">
+              Contactar
+            </a>
+          </div>
+        </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        {/* Servicios Section */}
+        <section className="py-20 bg-white text-center">
+          <h2 className="text-3xl font-bold text-gray-800">¿Qué hacemos?</h2>
+          <p className="mt-4 text-gray-600">
+            Ofrecemos servicios de diseño gráfico, edición de video y diseño
+            UX/UI, facilitando la colaboración en proyectos a gran escala.
+          </p>
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-gray-100 rounded-lg">
+              <h3 className="text-2xl font-semibold text-gray-700">
+                Diseño Gráfico
+              </h3>
+              <p className="mt-4 text-gray-600">
+                Desde logos hasta material promocional, nuestros diseñadores
+                están listos para crear lo que necesitas.
+              </p>
+            </div>
+            <div className="p-6 bg-gray-100 rounded-lg">
+              <h3 className="text-2xl font-semibold text-gray-700">
+                Edición de Video
+              </h3>
+              <p className="mt-4 text-gray-600">
+                Transforma tus ideas en contenido visual de alto impacto con
+                nuestros servicios de edición profesional.
+              </p>
+            </div>
+            <div className="p-6 bg-gray-100 rounded-lg">
+              <h3 className="text-2xl font-semibold text-gray-700">
+                Diseño UX/UI
+              </h3>
+              <p className="mt-4 text-gray-600">
+                Optimiza la experiencia de usuario de tu web o app con nuestros
+                expertos en diseño digital.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Beneficios Section */}
+        <section className="py-20 bg-gray-50 text-center">
+          <h2 className="text-3xl font-bold text-gray-800">
+            ¿Por qué Grayola.io?
+          </h2>
+          <p className="mt-4 text-gray-600">
+            Gestiona tus proyectos de diseño de forma eficiente con nuestra
+            plataforma escalable y colaborativa.
+          </p>
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-gray-700">
+                Escalabilidad
+              </h3>
+              <p className="mt-2 text-gray-600">
+                Gestiona cientos de proyectos de diseño a la vez.
+              </p>
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-gray-700">
+                Colaboración en Tiempo Real
+              </h3>
+              <p className="mt-2 text-gray-600">
+                Trabaja de manera colaborativa entre project managers y
+                diseñadores.
+              </p>
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-gray-700">
+                Soporte Personalizado
+              </h3>
+              <p className="mt-2 text-gray-600">
+                Soporte disponible para ayudarte en cada paso del camino.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action Section */}
+        <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-500 text-white text-center">
+          <h2 className="text-3xl font-bold">Empieza hoy con Grayola.io</h2>
+        </section>
+      </div>
+    </>
   );
-}
+};
+export default HomePage;
