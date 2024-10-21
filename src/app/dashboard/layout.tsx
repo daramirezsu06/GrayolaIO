@@ -3,11 +3,7 @@ import Sidebar from "./components/sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const DashboardLayout = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex flex-1 overflow-hidden">
       <ToastContainer
@@ -30,4 +26,4 @@ export const DashboardLayout = ({
   );
 };
 
-export default DashboardLayout;
+export default Layout;
