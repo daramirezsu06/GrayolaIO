@@ -23,6 +23,9 @@ const VerificationComponent = () => {
       const { error } = await supabase.auth.verifyOtp({
         token_hash: token,
         type: "email",
+        options: {
+          redirectTo: "https://grayola-io-hwig.vercel.app/auth/emailVerifi",
+        },
       });
 
       if (error) {
@@ -30,6 +33,8 @@ const VerificationComponent = () => {
       } else {
         setVerified(true);
       }
+      console.log(token);
+
       setLoading(false);
     };
 

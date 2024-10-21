@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { Session } from "@supabase/supabase-js";
+import { useGlobalContext } from "../Context/useGlobalContext";
 
 // Arrays de configuración fuera del componente
 const navLinks = [{ href: "/dashboard", label: "Dashboard" }];
@@ -16,6 +17,7 @@ const userLinks = [{ href: "/profile", label: "Perfil" }];
 export const Navbar = () => {
   const [session, setSession] = useState<Session | null>(null);
   const router = useRouter();
+  const { userProfile, setUserProfile } = useGlobalContext();
 
   useEffect(() => {
     const getCurrentSession = async () => {
@@ -39,8 +41,13 @@ export const Navbar = () => {
   }, []);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/auth/login");
+    try {
+      await supabase.auth.signOut();
+      setUserProfile(null);
+      router.push("/auth/login");
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
   };
 
   return (
