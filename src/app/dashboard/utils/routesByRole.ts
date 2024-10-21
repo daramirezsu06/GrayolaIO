@@ -1,7 +1,7 @@
 export const routesByRole = {
   admin: [
     {
-      name: "Dashboard",
+      name: "Funcionalidades",
       path: "/dashboard/admin",
       description: "Vista general de la plataforma y métricas clave.",
     },
@@ -11,11 +11,6 @@ export const routesByRole = {
       description: "Gestión de los usuarios del sistema.",
     },
     {
-      name: "Crear Usuarios",
-      path: "/dashboard/admin/users/create",
-      description: "Formulario para añadir nuevos usuarios.",
-    },
-    {
       name: "Proyectos",
       path: "/dashboard/admin/projects",
       description: "Administración de todos los proyectos.",
@@ -23,7 +18,7 @@ export const routesByRole = {
   ],
   manager: [
     {
-      name: "Dashboard",
+      name: "Funcionalidades",
       path: "/dashboard/manager",
       description: "Resumen de proyectos y actividades.",
     },
@@ -35,7 +30,7 @@ export const routesByRole = {
   ],
   designer: [
     {
-      name: "Dashboard",
+      name: "Funcionalidades",
       path: "/dashboard/designer",
       description: "Espacio de trabajo y progreso de tareas.",
     },
@@ -47,7 +42,7 @@ export const routesByRole = {
   ],
   customer: [
     {
-      name: "Dashboard",
+      name: "Funcionalidades",
       path: "/dashboard/customer",
       description: "Acceso a proyectos y novedades.",
     },

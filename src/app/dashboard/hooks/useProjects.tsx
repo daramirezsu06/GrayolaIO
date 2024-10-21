@@ -59,9 +59,9 @@ export default function UseProjects() {
 
   const openModal = (project: Project) => {
     setSelectedProject(project);
-    setselectedProfileID(project.assigned_to || null); // Asignar el perfil actual
-    setTitle(project.title); // Cargar el título actual
-    setDescription(project.description); // Cargar la descripción actual
+    setselectedProfileID(project.assigned_to || null); 
+    setTitle(project.title); 
+    setDescription(project.description);
     setIsModalOpen(true);
   };
 
@@ -107,11 +107,11 @@ export default function UseProjects() {
     selectedProfileID,
     setselectedProfileID,
     handleDelete,
-    openModal, // Cambiar el nombre de la función a openModal
-    handleUpdateProject, // Nueva función para actualizar el proyecto
-    title, // Añadir el estado del título
-    setTitle, // Función para actualizar el estado del título
-    description, // Añadir el estado de la descripción
-    setDescription, // Función para actualizar el estado de la descripción
+    openModal, 
+    handleUpdateProject, 
+    title, 
+    setTitle, 
+    description, 
+    setDescription, 
   };
 }

@@ -20,7 +20,7 @@ const ModalEditProjects = ({
       <div className="bg-white p-8 rounded-lg shadow-md w-11/12 max-w-md">
         <h2 className="text-2xl font-bold mb-4">Editar Proyecto</h2>
         <p className="mb-4">
-          Edita los detalles del proyecto "{selectedProject?.title}"
+          Edita los detalles del proyecto {selectedProject?.title}
         </p>
         <div className="mb-4">
           <label className="block mb-2">Título:</label>

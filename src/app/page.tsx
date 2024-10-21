@@ -2,7 +2,6 @@ const HomePage = () => {
   return (
     <>
       <div className="bg-gray-50 min-h-screen">
-        {/* Hero Section */}
         <section className="bg-gradient-to-r from-purple-500 to-blue-600 text-white text-center py-20">
           <h1 className="text-4xl font-bold">
             Diseño a tu alcance, a gran escala
@@ -64,7 +63,6 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* Beneficios Section */}
         <section className="py-20 bg-gray-50 text-center">
           <h2 className="text-3xl font-bold text-gray-800">
             ¿Por qué Grayola.io?
@@ -103,7 +101,6 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* Call to Action Section */}
         <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-500 text-white text-center">
           <h2 className="text-3xl font-bold">Empieza hoy con Grayola.io</h2>
         </section>
