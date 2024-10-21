@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { Profile } from "../types/projects.type";
 import { Project } from "@/app/types";
+import { validatefield } from "@/formValidatiosn/validateForm";
 
 export default function UseProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -15,6 +16,14 @@ export default function UseProjects() {
   );
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [errorTitle, setErrorTitle] = useState<string | null>("");
+  const [errorDescription, setErrorDescription] = useState<string | null>("");
+  useEffect(() => {
+    setErrorTitle(validatefield("title", title));
+  }, [title]);
+  useEffect(() => {
+    setErrorDescription(validatefield("description", description));
+  }, [description]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -34,7 +43,9 @@ export default function UseProjects() {
     const fetchProfiles = async () => {
       const { data, error } = await supabase
         .from("profiles")
-        .select("id, name");
+        .select("id, name")
+        .eq("role", "designer");
+
       if (error) {
         setError("Error al cargar los perfiles");
         return;
@@ -60,8 +71,8 @@ export default function UseProjects() {
 
   const openModal = (project: Project) => {
     setSelectedProject(project);
-    setselectedProfileID(project.assigned_to || null); 
-    setTitle(project.title); 
+    setselectedProfileID(project.assigned_to || null);
+    setTitle(project.title);
     setDescription(project.description);
     setIsModalOpen(true);
   };
@@ -108,11 +119,13 @@ export default function UseProjects() {
     selectedProfileID,
     setselectedProfileID,
     handleDelete,
-    openModal, 
-    handleUpdateProject, 
-    title, 
-    setTitle, 
-    description, 
-    setDescription, 
+    openModal,
+    handleUpdateProject,
+    title,
+    setTitle,
+    description,
+    setDescription,
+    errorDescription,
+    errorTitle,
   };
 }

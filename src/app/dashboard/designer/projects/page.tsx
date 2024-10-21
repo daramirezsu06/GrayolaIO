@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useGlobalContext } from "@/app/Context/useGlobalContext";
 import { Project } from "@/app/types";
+import withRoleProtection from "../../hooks/withRoleProtection";
 
-const FileUploadTable = () => {
+const AsignedProjects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -104,4 +105,4 @@ const FileUploadTable = () => {
   );
 };
 
-export default FileUploadTable;
+export default withRoleProtection(AsignedProjects, ["designer"]);

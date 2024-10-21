@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { Profile, Role } from "@/app/types";
 import { toast } from "react-toastify";
+import withRoleProtection from "../../hooks/withRoleProtection";
 
-export default function AdminDashboard() {
+const AdminDashboard = () => {
   const [users, setUsers] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingUser, setEditingUser] = useState<string | null>(null);
@@ -160,4 +161,6 @@ export default function AdminDashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default withRoleProtection(AdminDashboard, ["admin"]);

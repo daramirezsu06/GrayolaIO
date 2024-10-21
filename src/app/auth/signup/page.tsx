@@ -2,28 +2,66 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import { FieldKeys, validatefield } from "@/formValidatiosn/validateForm";
+import { signupFormFields } from "../utils/signupFormFields";
+import { SignupFormData, SignupFormError } from "./signup.types";
 
 export default function SignupPage() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<SignupFormData>({
     email: "",
     password: "",
     name: "",
     phone_number: "",
-    role: "customer", // Valor por defecto
-    company: "", // Solo si el rol es 'customer'
+    role: "customer",
+    company: "",
+  });
+  const [formError, setFormError] = useState<SignupFormError>({
+    email: "",
+    password: "",
+    name: "",
+    phone_number: "",
+    role: "customer",
+    company: "",
   });
   const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+    const { name, value } = e.target;
 
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+
+    const errorMessage = validatefield(name as FieldKeys, value);
+
+    setFormError((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage,
+    }));
+
+    if (name === "role") {
+      if (value === "customer") {
+        const companyError = validatefield(
+          "company" as FieldKeys,
+          formData.company
+        );
+        setFormError((prevErrors) => ({
+          ...prevErrors,
+          company: companyError,
+        }));
+      } else {
+        setFormError((prevErrors) => ({
+          ...prevErrors,
+          company: "",
+        }));
+      }
+    }
+  };
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -65,54 +103,32 @@ export default function SignupPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-      {/* Header */}
       <h1 className="text-4xl font-bold text-gray-800 mb-6">Crea tu cuenta</h1>
-
-      {/* Error Message */}
       {error && <p className="text-red-500 mb-4">{error}</p>}
-
-      {/* Signup Form */}
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <div className="flex flex-col gap-4">
-          <input
-            type="email"
-            name="email"
-            placeholder="Correo electrónico"
-            value={formData.email}
-            onChange={handleChange}
-            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            value={formData.password}
-            onChange={handleChange}
-            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-          <input
-            type="text"
-            name="name"
-            placeholder="Nombre completo"
-            value={formData.name}
-            onChange={handleChange}
-            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          />
-          <input
-            type="text"
-            name="phone_number"
-            placeholder="Número de teléfono"
-            value={formData.phone_number}
-            onChange={handleChange}
-            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-          />
+          {signupFormFields.map((field) => (
+            <>
+              <input
+                key={field.name}
+                type={field.type}
+                name={field.name}
+                placeholder={field.placeholder}
+                value={formData[field.name as keyof typeof formData]}
+                onChange={handleChange}
+                className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                required={field.required}
+              />
+              {formError[field.name as keyof typeof formError] && (
+                <p className="mt-1 text-red-500 text-sm">
+                  {formError[field.name as keyof typeof formError]}
+                </p>
+              )}
+            </>
+          ))}
 
-          {/* Select para el rol */}
           <select
             name="role"
             value={formData.role}
@@ -123,7 +139,6 @@ export default function SignupPage() {
             <option value="manager">Gerente</option>
           </select>
 
-          {/* Mostrar campo 'company' solo si el rol es 'customer' */}
           {formData.role === "customer" && (
             <input
               type="text"
@@ -135,7 +150,6 @@ export default function SignupPage() {
             />
           )}
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full p-3 bg-gradient-to-r from-purple-500 to-blue-600 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">
@@ -144,7 +158,6 @@ export default function SignupPage() {
         </div>
       </form>
 
-      {/* Link to Login */}
       <p className="mt-4 text-gray-600">
         ¿Ya tienes una cuenta?{" "}
         <a href="/auth/login" className="text-blue-500 hover:underline">

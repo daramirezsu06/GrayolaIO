@@ -2,7 +2,6 @@
 
 import { ModalEditProjectsProps } from "../types/projects.type";
 
-
 const ModalEditProjects = ({
   profiles,
   setIsModalOpen,
@@ -14,6 +13,8 @@ const ModalEditProjects = ({
   setTitle,
   description,
   setDescription,
+  errorDescription,
+  errorTitle,
 }: ModalEditProjectsProps) => {
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
@@ -31,6 +32,7 @@ const ModalEditProjects = ({
             className="border border-gray-300 p-2 w-full rounded"
             placeholder="Título del proyecto"
           />
+          <p className="mt-1 text-red-500 text-sm">{errorTitle}</p>
         </div>
         <div className="mb-4">
           <label className="block mb-2">Descripción:</label>
@@ -41,12 +43,13 @@ const ModalEditProjects = ({
             placeholder="Descripción del proyecto"
             rows={4}
           />
+          <p className="mt-1 text-red-500 text-sm">{errorDescription}</p>
         </div>
         <select
           className="border border-gray-300 p-2 mb-4 w-full rounded"
           value={selectedProfileID || ""}
           onChange={(e) => setselectedProfileID(e.target.value)}>
-          <option value="">Selecciona un perfil</option>
+          <option value="">Selecciona un Diseñador</option>
           {profiles.map((profile) => (
             <option key={profile.id} value={profile.id}>
               {profile.name}

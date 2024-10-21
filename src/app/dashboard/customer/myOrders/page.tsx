@@ -4,15 +4,26 @@ import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { Project } from "@/app/types";
 
-export default function ProjectManagerDashboard() {
+import { useGlobalContext } from "@/app/Context/useGlobalContext";
+import withRoleProtection from "../../hooks/withRoleProtection";
+
+const ProjectManagerDashboard = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { userProfile } = useGlobalContext();
 
   useEffect(() => {
+    if (!userProfile) {
+      setError("Usuario no encontrado.");
+      return;
+    }
     const fetchProjects = async () => {
-      const { data, error } = await supabase.from("projects").select("*");
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("created_by", userProfile.id);
       if (error) {
         setError("Error al cargar los proyectos");
         return;
@@ -80,4 +91,6 @@ export default function ProjectManagerDashboard() {
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
-}
+};
+
+export default withRoleProtection(ProjectManagerDashboard, ["customer"]);

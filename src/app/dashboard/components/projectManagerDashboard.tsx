@@ -21,6 +21,8 @@ export default function ProjectManagerDashboard() {
     setTitle,
     description,
     setDescription,
+    errorDescription,
+    errorTitle,
   } = UseProjects();
 
   return (
@@ -86,6 +88,8 @@ export default function ProjectManagerDashboard() {
           setTitle={setTitle}
           description={description}
           setDescription={setDescription}
+          errorDescription={errorDescription}
+          errorTitle={errorTitle}
         />
       )}
     </div>

@@ -5,8 +5,6 @@ export interface ProfileAsigned {
   company?: string | null;
 }
 
-
-
 export interface Profile {
   id: string;
   name: string;
@@ -23,4 +21,6 @@ export interface ModalEditProjectsProps {
   setTitle: (title: string) => void;
   description: string;
   setDescription: (description: string) => void;
+  errorDescription: string | null;
+  errorTitle: string | null;
 }

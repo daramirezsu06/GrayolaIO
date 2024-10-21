@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/app/Context/useGlobalContext";
+import { validatefield } from "@/formValidatiosn/validateForm";
+import withRoleProtection from "../../hooks/withRoleProtection";
 
 const CreateProjectForm = () => {
   const [title, setTitle] = useState("");
@@ -10,6 +12,14 @@ const CreateProjectForm = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { userProfile } = useGlobalContext();
+  const [errorTitle, setErrorTitle] = useState<string | null>("");
+  const [errorDescription, setErrorDescription] = useState<string | null>("");
+  useEffect(() => {
+    setErrorTitle(validatefield("title", title));
+  }, [title]);
+  useEffect(() => {
+    setErrorDescription(validatefield("description", description));
+  }, [description]);
 
   const handleCreateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,6 +65,7 @@ const CreateProjectForm = () => {
               required
               className="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <p className="mt-1 text-red-500 text-sm">{errorTitle}</p>
           </div>
 
           <div className="mb-4">
@@ -65,6 +76,7 @@ const CreateProjectForm = () => {
               required
               className="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <p className="mt-1 text-red-500 text-sm">{errorDescription}</p>
           </div>
 
           <button
@@ -78,4 +90,5 @@ const CreateProjectForm = () => {
   );
 };
 
-export default CreateProjectForm;
+
+export default withRoleProtection(CreateProjectForm, ["customer"]);
