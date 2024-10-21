@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 
-const VerificationPage = () => {
+const VerificationComponent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
@@ -13,15 +13,12 @@ const VerificationPage = () => {
   useEffect(() => {
     const verifyEmail = async () => {
       const token = searchParams.get("token");
-      console.log(token);
-      
 
       if (!token) {
         setError("Token no encontrado.");
         setLoading(false);
         return;
       }
-      console.log("el token traido de param es", token);
 
       const { error } = await supabase.auth.verifyOtp({
         token_hash: token,
@@ -37,7 +34,6 @@ const VerificationPage = () => {
     };
 
     verifyEmail();
-    console.log("params", searchParams);
   }, [searchParams]);
 
   if (loading) return <div className="text-center">Verificando...</div>;
@@ -57,7 +53,7 @@ const VerificationPage = () => {
             </p>
             <p>Ahora puedes iniciar sesión en tu cuenta.</p>
             <button
-              onClick={() => router.push("/login")} // Utiliza router.push de `next/navigation`
+              onClick={() => router.push("/login")}
               className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
               Ir a Iniciar Sesión
             </button>
@@ -80,4 +76,11 @@ const VerificationPage = () => {
   );
 };
 
-export default VerificationPage;
+// Wrap the component in Suspense to handle useSearchParams correctly
+export default function VerificationPage() {
+  return (
+    <Suspense fallback={<div className="text-center">Cargando...</div>}>
+      <VerificationComponent />
+    </Suspense>
+  );
+}

@@ -1,11 +1,18 @@
 "use client";
 import { useGlobalContext } from "@/app/Context/useGlobalContext";
-import { routesByRole } from "../utils/routesByRole";
+import { Route, routesByRole } from "../utils/routesByRole";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const RoleDashboardPage = () => {
   const { userProfile } = useGlobalContext();
-  const routes = routesByRole[userProfile?.role] || [];
+  const [routes, setRoutes] = useState<Route[]>([]);
+  useEffect(() => {
+    if (userProfile?.role) {
+      setRoutes(routesByRole[userProfile.role] || []);
+    }
+  }, [userProfile]);
+
 
   return (
     <div className="p-6">

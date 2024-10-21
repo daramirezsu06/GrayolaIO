@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import { Profile } from "@/app/types";
+import { Profile, Role } from "@/app/types";
 import { toast } from "react-toastify";
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingUser, setEditingUser] = useState(null);
+  const [editingUser, setEditingUser] = useState<string | null>(null);
   const [role, setRole] = useState("");
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function AdminDashboard() {
     fetchUsers();
   }, []);
 
-  const updateUserRole = async (userId: string, newRole: string) => {
+  const updateUserRole = async (userId: string, newRole: Role) => {
     const { error } = await supabase
       .from("profiles")
       .update({ role: newRole })
@@ -109,15 +109,16 @@ export default function AdminDashboard() {
                   <div className="flex items-center space-x-2">
                     <select
                       value={role}
-                      onChange={(e) => setRole(e.target.value)}
+                      onChange={(e) => setRole(e.target.value as Role)} // Conversión a Role
                       className="border border-gray-300 p-2 rounded-md">
                       <option value="admin">Admin</option>
                       <option value="customer">Cliente</option>
                       <option value="designer">Diseñador</option>
                       <option value="manager">Manager</option>
                     </select>
+
                     <button
-                      onClick={() => updateUserRole(user.user_id, role)}
+                      onClick={() => updateUserRole(user.user_id, role as Role)}
                       className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition-colors">
                       Guardar
                     </button>

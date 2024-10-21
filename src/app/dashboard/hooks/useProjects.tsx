@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { Profile } from "../types/projects.type";
+import { Project } from "@/app/types";
 
 export default function UseProjects() {
   const [projects, setProjects] = useState<Project[]>([]);

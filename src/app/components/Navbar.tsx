@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import { Session } from "@supabase/supabase-js";
 
 // Arrays de configuración fuera del componente
 const navLinks = [{ href: "/dashboard", label: "Dashboard" }];
@@ -13,7 +14,7 @@ const authLinks = [
 const userLinks = [{ href: "/profile", label: "Perfil" }];
 
 export const Navbar = () => {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<Session | null>(null);
   const router = useRouter();
 
   useEffect(() => {

@@ -1,17 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { routesByRole } from "../utils/routesByRole";
+import { Route, routesByRole } from "../utils/routesByRole";
 import { useGlobalContext } from "@/app/Context/useGlobalContext";
 
 export const Sidebar = () => {
-  const [routes, setRoutes] = useState([]);
+  const [routes, setRoutes] = useState<Route[]>([]);
   const router = useRouter();
   const { userProfile } = useGlobalContext();
   const pathname = usePathname();
 
   useEffect(() => {
-    setRoutes(routesByRole[userProfile?.role] || []);
+    if (userProfile?.role) {
+      setRoutes(routesByRole[userProfile.role] || []);
+    }
   }, [userProfile]);
 
   return (
@@ -20,11 +22,11 @@ export const Sidebar = () => {
         <ul className="mt-6 space-y-1">
           {routes.length > 0 ? (
             routes.map((route, index) => {
-
               const isActive = pathname === route.path;
 
               return (
                 <li
+                  onClick={() => router.push(route.path)}
                   key={index}
                   className={`p-4 cursor-pointer transition-colors ${
                     isActive
@@ -32,7 +34,6 @@ export const Sidebar = () => {
                       : "hover:bg-blue-700 hover:bg-opacity-75"
                   }`}>
                   <span
-                    onClick={() => router.push(route.path)}
                     className={`font-medium text-lg ${
                       isActive ? "font-bold" : ""
                     }`}>

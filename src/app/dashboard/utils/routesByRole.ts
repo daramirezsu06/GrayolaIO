@@ -58,3 +58,9 @@ export const routesByRole = {
     },
   ],
 };
+
+export interface Route {
+  name: string;
+  path: string;
+  description: string;
+}

@@ -4,7 +4,7 @@ export interface Profile {
   id: string;
   name: string;
   phone_number: string;
-  role: string;
+  role: Role;
   status: string;
   updated_at: string | null;
   user_id: string;
@@ -14,7 +14,7 @@ export interface Profile {
 export interface Project {
   id: string;
   title: string;
-  description: string | null;
+  description: string ;
   created_at: string;
   updated_at: string | null;
   created_by: string;
@@ -22,3 +22,5 @@ export interface Project {
   creator_profile: Profile;
   assignee_profile: Profile | null;
 }
+
+export type Role = "admin" | "manager" | "designer" | "customer";
