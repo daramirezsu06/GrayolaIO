@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const HomePage = () => {
   return (
     <>
@@ -11,20 +13,19 @@ const HomePage = () => {
             todo el mundo.
           </p>
           <div className="mt-8">
-            <a
+            <Link href="/auth/signup">
               href="/signup"
               className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold shadow-md hover:bg-gray-100 mr-4">
               Crear Cuenta
-            </a>
-            <a
+            </Link>
+            <Link href="/auth/signup">
               href="/contact"
               className="bg-transparent border border-white px-6 py-3 rounded-md text-white font-semibold hover:bg-white hover:text-blue-600">
               Contactar
-            </a>
+            </Link>
           </div>
         </section>
 
-        {/* Servicios Section */}
         <section className="py-20 bg-white text-center">
           <h2 className="text-3xl font-bold text-gray-800">¿Qué hacemos?</h2>
           <p className="mt-4 text-gray-600">
