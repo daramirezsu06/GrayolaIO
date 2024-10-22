@@ -14,11 +14,15 @@ const HomePage = () => {
           </p>
           <div className="mt-8">
             <Link
-              href="/auth/signup"
-              className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold shadow-md hover:bg-gray-100 mr-4"></Link>
+              href="/auth/login"
+              className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold shadow-md hover:bg-gray-100 mr-4">
+              Eres Uruario?
+            </Link>
             <Link
               href="/auth/signup"
-              className="bg-transparent border border-white px-6 py-3 rounded-md text-white font-semibold hover:bg-white hover:text-blue-600"></Link>
+              className="bg-transparent border border-white px-6 py-3 rounded-md text-white font-semibold hover:bg-white hover:text-blue-600">
+              Crea una cuenta
+            </Link>
           </div>
         </section>
 
