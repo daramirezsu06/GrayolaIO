@@ -6,18 +6,15 @@ import { useRouter } from "next/navigation";
 import { Session } from "@supabase/supabase-js";
 import { useGlobalContext } from "../Context/useGlobalContext";
 
-// Arrays de configuración fuera del componente
-const navLinks = [{ href: "/dashboard", label: "Dashboard" }];
 const authLinks = [
   { href: "/auth/login", label: "Iniciar Sesión" },
   { href: "/auth/signup", label: "Registrarse" },
 ];
-const userLinks = [{ href: "/profile", label: "Perfil" }];
 
 export const Navbar = () => {
   const [session, setSession] = useState<Session | null>(null);
   const router = useRouter();
-  const { setUserProfile } = useGlobalContext();
+  const { userProfile, setUserProfile } = useGlobalContext();
 
   useEffect(() => {
     const getCurrentSession = async () => {
@@ -42,9 +39,16 @@ export const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Error al cerrar sesión:", error);
+        return;
+      }
       setUserProfile(null);
+
       router.push("/auth/login");
+
+      router.refresh();
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
@@ -53,35 +57,21 @@ export const Navbar = () => {
   return (
     <nav className="bg-gradient-to-r from-purple-500 to-blue-600 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        {/* Logo */}
         <Link href="/" className="text-white text-2xl font-bold tracking-wide">
           Grayola.io
         </Link>
 
-        {/* Navegación */}
         <ul className="flex space-x-6 items-center">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="text-white font-medium hover:text-gray-200 transition-colors">
-                {link.label}
-              </Link>
-            </li>
-          ))}
-
           {session ? (
             <>
-              {/* Links de usuario autenticado */}
-              {userLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white font-medium hover:text-gray-200 transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href={`/dashboard/${userProfile?.role}`}
+                  className="text-white font-medium hover:text-gray-200 transition-colors">
+                  Dashboard
+                </Link>
+              </li>
+
               <li>
                 <button
                   onClick={handleLogout}
@@ -92,7 +82,6 @@ export const Navbar = () => {
             </>
           ) : (
             <>
-              {/* Links de autenticación */}
               {authLinks.map((link) => (
                 <li key={link.href}>
                   <Link

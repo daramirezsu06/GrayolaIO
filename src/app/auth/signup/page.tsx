@@ -61,7 +61,7 @@ export default function SignupPage() {
       }
     }
   };
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -93,7 +93,7 @@ export default function SignupPage() {
           return;
         }
 
-        router.push("/auth/login");
+        router.push("/auth/emailSent");
       }
     } catch (err) {
       console.error("Error during signup:", err);

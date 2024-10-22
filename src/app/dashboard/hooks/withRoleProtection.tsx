@@ -2,7 +2,10 @@
 import { useGlobalContext } from "@/app/Context/useGlobalContext";
 import { useRouter } from "next/navigation";
 
-const withRoleProtection = (WrappedComponent, allowedRoles) => {
+const withRoleProtection = (
+  WrappedComponent: React.ComponentType,
+  allowedRoles: string[]
+) => {
   return function ProtectedRoute() {
     const router = useRouter();
     const { userProfile } = useGlobalContext();
