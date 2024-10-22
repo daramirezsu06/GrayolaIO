@@ -88,10 +88,7 @@ const AdminDashboard = () => {
                 <h3 className="text-lg font-bold text-gray-800">
                   {user.name || "Sin nombre"}
                 </h3>
-                <p className="text-gray-600">
-                  <span className="  text-gray-800 font-bold">Email: </span>{" "}
-                  {user.email || "Sin email"}
-                </p>
+
                 <p className="text-gray-600">
                   <span className="  text-gray-800 font-bold">Role: </span>
                   {user.role || "Sin rol"}
