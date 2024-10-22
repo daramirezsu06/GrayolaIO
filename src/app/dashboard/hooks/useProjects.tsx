@@ -24,22 +24,21 @@ export default function UseProjects() {
   useEffect(() => {
     setErrorDescription(validatefield("description", description));
   }, [description]);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const { data, error } = await supabase.from("projects").select(`
+  const fetchProjects = async () => {
+    const { data, error } = await supabase.from("projects").select(`
         *,
         creator_profile:profiles!projects_created_by_fkey(name, company),
         assignee_profile:profiles!projects_assigned_to_fkey(name)
       `);
-      if (error) {
-        setError("Error al cargar los proyectos");
-        return;
-      }
-      setProjects(data || []);
-      setLoading(false);
-    };
+    if (error) {
+      setError("Error al cargar los proyectos");
+      return;
+    }
+    setProjects(data || []);
+    setLoading(false);
+  };
 
+  useEffect(() => {
     const fetchProfiles = async () => {
       const { data, error } = await supabase
         .from("profiles")
@@ -94,12 +93,13 @@ export default function UseProjects() {
       setError("Error al actualizar el proyecto");
       return;
     }
+    fetchProjects();
 
-    setProjects((prevProjects) =>
-      prevProjects.map((project) =>
-        project.id === selectedProject.id ? { ...project, ...updates } : project
-      )
-    );
+    // setProjects((prevProjects) =>
+    //   prevProjects.map((project) =>
+    //     project.id === selectedProject.id ? { ...project, ...updates } : project
+    //   )
+    // );
 
     setIsModalOpen(false);
     setSelectedProject(null);

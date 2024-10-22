@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { useGlobalContext } from "@/app/Context/useGlobalContext";
@@ -9,7 +9,12 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const { setUserProfile } = useGlobalContext();
+  const { userProfile, setUserProfile } = useGlobalContext();
+  useEffect(() => {
+    if (userProfile) {
+      router.push(`/dashboard/${userProfile.role}`);
+    }
+  }, [userProfile, router]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -98,5 +103,4 @@ export default function LoginPage() {
       </form>
     </div>
   );
-
 }
