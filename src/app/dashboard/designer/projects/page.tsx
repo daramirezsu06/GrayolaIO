@@ -47,7 +47,7 @@ const AsignedProjects = () => {
     }
 
     const { error } = await supabase.storage
-      .from("your_bucket")
+      .from("designer_files")
       .upload(`project_files/${projectId}/${selectedFile.name}`, selectedFile);
 
     if (error) {
