@@ -33,7 +33,7 @@ const ProjectManagerDashboard = () => {
     };
 
     fetchProjects();
-  }, []);
+  }, [userProfile]);
 
   const handleDelete = async (projectId: string) => {
     const { error } = await supabase
