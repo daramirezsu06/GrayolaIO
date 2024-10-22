@@ -70,6 +70,9 @@ export default function SignupPage() {
         await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/auth/emailVerifi`,
+          },
         });
 
       if (signUpError) {
@@ -93,7 +96,7 @@ export default function SignupPage() {
           return;
         }
 
-        router.push("/auth/emailSent");
+        router.push("/verificacion");
       }
     } catch (err) {
       console.error("Error during signup:", err);
