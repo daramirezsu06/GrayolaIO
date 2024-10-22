@@ -13,16 +13,12 @@ const HomePage = () => {
             todo el mundo.
           </p>
           <div className="mt-8">
-            <Link href="/auth/signup">
-              href="/signup"
-              className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold shadow-md hover:bg-gray-100 mr-4">
-              Crear Cuenta
-            </Link>
-            <Link href="/auth/signup">
-              href="/contact"
-              className="bg-transparent border border-white px-6 py-3 rounded-md text-white font-semibold hover:bg-white hover:text-blue-600">
-              Contactar
-            </Link>
+            <Link
+              href="/auth/signup"
+              className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold shadow-md hover:bg-gray-100 mr-4"></Link>
+            <Link
+              href="/auth/signup"
+              className="bg-transparent border border-white px-6 py-3 rounded-md text-white font-semibold hover:bg-white hover:text-blue-600"></Link>
           </div>
         </section>
 
